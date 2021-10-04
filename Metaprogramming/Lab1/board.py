@@ -14,6 +14,7 @@ class Board:
         self.cells = [[Board.__Cell(i, j) for j in range(FIELD_SIZE)] for i in range(FIELD_SIZE)]
         self.game = GameManager()
         self.board_buffer = copy.deepcopy(self.game.board)
+        self.score_buffer = self.game.score
 
         # position of selected ball
         self.selected = None
@@ -24,11 +25,12 @@ class Board:
         return True if self.animation != None else False
 
     def get_score(self):
-        return self.game.score
+        return self.score_buffer
 
     def reset_game(self):
         self.game = GameManager()
         self.board_buffer = copy.deepcopy(self.game.board)
+        self.score_buffer = self.game.score
         self.selected = None
         self.animation = None
 
@@ -49,6 +51,7 @@ class Board:
             if self.animation.is_finished():
                 self.animation = None
                 self.board_buffer = copy.deepcopy(self.game.board)
+                self.score_buffer = self.game.score
 
         screen.blit(
             self.surface,
